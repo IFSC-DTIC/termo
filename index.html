@@ -380,7 +380,7 @@
                     <div style="text-align: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;">
                         <p style="margin: 0; font-size: 10pt;">MINISTÉRIO DA EDUCAÇÃO</p>
                         <p style="margin: 0; font-size: 10pt;">SECRETARIA DE EDUCAÇÃO PROFISSIONAL E TECNOLÓGICA</p>
-                        <p style="margin: 0; font-weight: bold; font-size: 11pt;">INSTITUTO FEDERAL DE SANTA CATARINA - {{ form.campus ? 'CAMPUS ' + form.campus.toUpperCase() : 'IFSC' }}</p>
+                        <p style="margin: 0; font-weight: bold; font-size: 11pt;">INSTITUTO FEDERAL DE SANTA CATARINA - {{ form.campus ? (form.campus.toLowerCase() === 'reitoria' ? 'REITORIA' : 'CAMPUS ' + form.campus.toUpperCase()) : 'IFSC' }}</p>
                     </div>
                     
                     <!-- MODELO PARA MAIORES DE IDADE -->
@@ -401,7 +401,7 @@
                             <p class="pdf-p"><strong>Meus Direitos:</strong> Tenho ciência de que o IFSC tratará meus dados de maneira segura e compatível com a LGPD. Entendo também que poderei solicitar verificação, alteração ou revogar minha autorização a qualquer momento pelo e-mail: encarregado.lgpd@ifsc.edu.br.</p>
                         </div>
                         
-                        <p style="margin-top: 40px; text-align: right; margin-bottom: 60px;">{{ form.campus || 'Local' }}, {{ currentDate }}.</p>
+                        <p style="margin-top: 40px; text-align: right; margin-bottom: 60px;">{{ campusData[form.campus] || 'Local' }}, {{ currentDate }}.</p>
                         
                         <div style="text-align: center;">
                             <p style="border-top: 1px solid #000; display: inline-block; padding: 0 40px; margin: 0;">Assinatura do Titular</p>
@@ -464,7 +464,7 @@
                             Eu, pai, mãe ou responsável legal identificado acima, declaro que compreendi as finalidades informadas e dou minha decisão (X) de forma livre e inequívoca. Tenho ciência de que, a qualquer tempo, poderei solicitar revisão ou revogar esta autorização entrando em contato com o encarregado oficial de dados no e-mail: encarregado.lgpd@ifsc.edu.br.
                         </p>
                         
-                        <p style="margin-top: 25px; text-align: right; margin-bottom: 40px;">{{ form.campus || '_________________________' }}, {{ currentDate }}.</p>
+                        <p style="margin-top: 25px; text-align: right; margin-bottom: 40px;">{{ campusData[form.campus] || '_________________________' }}, {{ currentDate }}.</p>
                         
                         <div style="text-align: center;">
                             <p style="border-top: 1px solid #000; display: inline-block; padding: 0 40px; margin: 0;">Assinatura do Responsável Legal</p>
@@ -498,12 +498,32 @@
                         responsavel_cpf: false,
                         estudante_cpf: false
                     },
-                    campusList: [
-                        "Araranguá", "Caçador", "Canoinhas", "Chapecó", "Criciúma", "Concórdia", 
-                        "Florianópolis", "Gaspar", "Itajaí", "Jaraguá do Sul", "Joinville", 
-                        "Lages", "Palhoça", "São Carlos", "São Francisco do Sul", "São José", 
-                        "São Lourenço do Oeste", "Tijucas", "Tubarão", "Urupema", "Xanxerê"
-                    ],
+                    campusData: {
+                        "Araranguá": "Araranguá",
+                        "Caçador": "Caçador",
+                        "Canoinhas": "Canoinhas",
+                        "Chapecó": "Chapecó",
+                        "Criciúma": "Criciúma",
+                        "Florianópolis - Centro": "Florianópolis",
+                        "Florianópolis - Continente": "Florianópolis",
+                        "Garopaba": "Garopaba",
+                        "Gaspar": "Gaspar",
+                        "Itajaí": "Itajaí",
+                        "Jaraguá do Sul - Centro": "Jaraguá do Sul",
+                        "Jaraguá do Sul - Rau": "Jaraguá do Sul",
+                        "Joinville": "Joinville",
+                        "Lages": "Lages",
+                        "Palhoça Bilíngue": "Palhoça",
+                        "Reitoria": "Florianópolis",
+                        "São Carlos": "São Carlos",
+                        "São José": "São José",
+                        "São Lourenço do Oeste": "São Lourenço do Oeste",
+                        "São Miguel do Oeste": "São Miguel do Oeste",
+                        "Tijucas": "Tijucas",
+                        "Tubarão": "Tubarão",
+                        "Urupema": "Urupema",
+                        "Xanxerê": "Xanxerê"
+                    },
                     success: false,
                     isGenerating: false,
                     hasGeneralError: false
@@ -512,6 +532,9 @@
             computed: {
                 currentDate() {
                     return new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+                },
+                campusList() {
+                    return Object.keys(this.campusData);
                 }
             },
             methods: {
