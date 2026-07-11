@@ -391,6 +391,11 @@
                             Pelo presente termo, eu, <strong>{{ form.estudante_nome }}</strong>, titular do CPF nº <strong>{{ form.estudante_cpf }}</strong>, sendo maior de idade, <strong>AUTORIZO</strong> de forma clara e objetiva que o IFSC colete e utilize meus dados biométricos (como leitura facial ou impressão digital), conforme as diretrizes da Lei Geral de Proteção de Dados Pessoais (LGPD).
                         </p>
                         
+                        <p class="pdf-p">
+                            <strong>Estudante:</strong> {{ form.estudante_nome }} (CPF: {{ form.estudante_cpf }})<br>
+                            <strong>Câmpus / Unidade:</strong> {{ form.campus }} &nbsp;|&nbsp; <strong>Cidade:</strong> {{ campusData[form.campus] }}
+                        </p>
+                        
                         <div style="margin-top: 15px;">
                             <p class="pdf-p"><strong>Para que serve:</strong> A coleta da minha biometria atende exclusivamente à finalidade de controlar o acesso físico às catracas e ambientes restritos (laboratórios) do Campus, visando garantir a segurança da comunidade acadêmica e resguardar o patrimônio do IFSC.</p>
                             
@@ -420,7 +425,8 @@
                         
                         <p class="pdf-p">
                             <strong>Responsável Legal:</strong> {{ form.responsavel_nome }} (CPF: {{ form.responsavel_cpf }})<br>
-                            <strong>Estudante:</strong> {{ form.estudante_nome }} (CPF: {{ form.estudante_cpf }})
+                            <strong>Estudante:</strong> {{ form.estudante_nome }} (CPF: {{ form.estudante_cpf }})<br>
+                            <strong>Câmpus / Unidade:</strong> {{ form.campus }} &nbsp;|&nbsp; <strong>Cidade:</strong> {{ campusData[form.campus] }}
                         </p>
                         
                         <!-- SEÇÃO A: NUVEM (ECA DIGITAL) -->
